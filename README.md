@@ -70,7 +70,7 @@ Top_100_IMDB_Movies.xlsx
 ## 📎 Related Projects
 
 If you are interested in movie-based projects, check out my other repository:
-👉 [Movie Recommendation System](https://github.com/begumsara/imdbMovies)
+👉 [Movie Recommendation System](https://github.com/begumsara/movieRecommendationSystem/tree/main)
 
 ---
 
