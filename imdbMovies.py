@@ -9,7 +9,7 @@ response = requests.get(url) #help us to get response form web pagepip install r
 
 #.status_code  ##200 means successfull request and we can proceed further with parsing
 soup= BeautifulSoup(response.content,"html.parser")#to get content of web site
-#print(soup)#prints all html data in web site
+print(soup)#prints all html data in web site
 
 #create empty list for datas
 movie_name = []
@@ -20,10 +20,10 @@ metascore = []
 votes = []
 gross = []
 
-#sayfada çok veri var hepsine ihtiyacımız yok veri azaltmak için
-movie_data = soup.findAll('div', attrs={'class':'lister-item mode-advanced'})#sayfada verinin ait olduğu yeri "incele" kullanarak bulduk
-                                                                            #isimini copy paste yaptık attrs ye
-#print(movie_data) #to print isim belirterek simplicty yapıp aldığımız veriler için  
+#there is a lot of data on the page, we don't need all of it to reduce data
+movie_data = soup.findAll('div', attrs={'class':'lister-item mode-advanced'})#we found where the data belongs on the page using "inspect"
+                                                                            ##we copy paste your name into attrs
+print(movie_data) #to print isim belirterek simplicty yapıp aldığımız veriler için  
 
 for store in movie_data:
     name = store.h3.a.text #film isminin nerede olduğunu bulduk --text kullandık çünkü sadece film ismini çekmek için
@@ -45,13 +45,13 @@ for store in movie_data:
      #since, gross and votes have same attributes, that's why we had created a common variable and then used indexing
     value = store.find_all('span', attrs = {'name': 'nv'})
     vote = value[0].text
-    #print(vote)
+    print(vote)
     votes.append(vote) 
 
     #same values has not gross values do if else statement for these
     grosses = value[1].text if len(value)>1 else '*********' #len>1 gross valuemüz var demek (kelimemiz mouse ise len=5 olur)
     gross.append(grosses)
-   # print(grosses)
+    print(grosses)
 
 
 
@@ -59,18 +59,18 @@ for store in movie_data:
 movie_DF = pd.DataFrame({'Name of movie': movie_name, 'Year of relase': year, 'Watchtime': time, 'Movie Rating': rating, 'Metascore': metascore, 'Votes': votes, 'Gross collection': gross})
     #Saving data in Excel file:
 movie_DF.to_excel("Top_100_IMDB_Movies.xlsx")
-    #print(movie_DF)
+    print(movie_DF)
 
     #to get first 30 movies in list
 print(movie_DF.head(30))
 
-    #print(mScore)
-    #print(rate)
-    #print(runtime)
-    #print(mYear)
-   # print(name) #prints all movie name data one by one
-   # print(movie_name) #prints all variables in movie_name
+    print(mScore)
+    print(rate)
+    print(runtime)
+    print(mYear)
+    print(name) #prints all movie name data one by one
+    print(movie_name) #prints all variables in movie_name
    
    #not necesarry for this example
-#print(np.count_nonzero(movie_name))#prints the number of data in movie_name
+print(np.count_nonzero(movie_name))#prints the number of data in movie_name
 
